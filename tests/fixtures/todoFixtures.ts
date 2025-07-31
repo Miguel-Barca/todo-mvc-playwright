@@ -1,4 +1,4 @@
-import { test as base, Page } from '@playwright/test';
+import { test as base } from '@playwright/test';
 import { config } from '../config/urls';
 import { getCurrentDate, getTomorrowDate } from '../helpers/timeHelper';
 import {
@@ -72,4 +72,4 @@ export const test = base.extend<TodoFixtures>({
   },
 });
 
-export { expect, Page } from '@playwright/test';
+export { expect } from '@playwright/test';

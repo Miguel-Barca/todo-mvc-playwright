@@ -1,5 +1,7 @@
 import { test, expect } from '../fixtures/todoFixtures';
 
+const urlToTestAgainst = 'https://todomvc.com/examples/react/dist/';
+
 test('create, complete and delete items from the list', async ({
   page,
   todoPage,
@@ -7,7 +9,7 @@ test('create, complete and delete items from the list', async ({
 }) => {
   await test.step('navigate to todo app', async () => {
     await todoPage.goto();
-    await expect(page).toHaveURL(/.*react.*dist/);
+    await expect(page).toHaveURL(urlToTestAgainst);
   });
 
   const [firstItemWithTodayDate, secondItemWithTomorrowDate] =
