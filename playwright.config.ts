@@ -36,13 +36,19 @@ export default defineConfig({
     trace: 'on-first-retry',
 
     video: process.env.CI
-      ? { mode: 'retain-on-failure', size: { width: 1280, height: 720 } }
-      : { mode: 'on', size: { width: 1280, height: 720 } },
+      ? {
+          mode: 'retain-on-failure',
+          size: { width: 1280, height: 720 },
+        }
+      : {
+          mode: 'on',
+          size: { width: 1280, height: 720 },
+        },
   },
 
   projects: [
     {
-      name: 'ui-testing',
+      name: 'chromium',
       testDir: './tests/ui-testing',
       use: { ...devices['Desktop Chrome'] },
     },

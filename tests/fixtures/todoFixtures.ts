@@ -11,12 +11,14 @@ import {
   navigateToAllItemsTab,
 } from '../helpers/todoReactHelper';
 import { TodoItem } from '../helpers/types';
+import { captureScreenshot } from '../helpers/screenshotHelper';
 
 export interface TodoFixtures {
   todoPage: {
     goto: () => Promise<void>;
 
     addItem: (todoItem: TodoItem) => Promise<void>;
+    captureScreenshot: (testName: string) => Promise<void>;
     completeItem: (todoItem: TodoItem) => Promise<void>;
     confirmCSSStylingOfCompletedItem: (todoItem: TodoItem) => Promise<void>;
     deleteItem: (todoItem: TodoItem) => Promise<void>;
@@ -43,6 +45,10 @@ export const test = base.extend<TodoFixtures>({
 
       addItem: async (todoItem: TodoItem) => {
         await addItemToTodoList(page, todoItem);
+      },
+
+      captureScreenshot: async (testName: string) => {
+        await captureScreenshot(page, testName);
       },
 
       completeItem: async (todoItem: TodoItem) => {

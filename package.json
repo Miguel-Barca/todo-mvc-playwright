@@ -6,7 +6,7 @@
   "scripts": {
     "test:ui:all:showHtmlReport": "playwright test && npx playwright show-report",
     "test:ui:all:showIndentListReport": "playwright test --reporter=indent-list-reporter",
-    "test:ui:chromium": "playwright test --project=ui-testing",
+    "test:ui:chromium": "playwright test --project=chromium",
     "test:ui:firefox": "playwright test --project=firefox",
     "test:ui:webkit": "playwright test --project=webkit"
   },

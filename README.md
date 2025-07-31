@@ -104,6 +104,8 @@ todo-mvc-playwright/
 │   ├── fixtures/         # Test fixtures and setup
 │   ├── helpers/          # Helper functions and utilities
 │   └── ui-testing/       # UI test specifications
+├── test-results/         # Screenshots and videos from test execution
+├── playwright-report/    # HTML test reports
 ├── playwright.config.ts  # Playwright configuration
 └── package.json         # Project dependencies and scripts
 ```
@@ -130,6 +132,27 @@ The project uses different reporters depending on the environment:
 - **List Reporter** - Provides real-time feedback during test execution
 - **HTML Reporter** - Generates reports for artifact storage and review
 
+### Screenshots and Video Recording
+
+The project captures visual documentation during test execution:
+
+**Screenshots:**
+
+- Captured at key stages throughout test execution (e.g., homepage, after adding items, after completing items, etc.)
+- Stored in `test-results/screenshots/` with descriptive names
+- Implemented using `todoPage.captureScreenshot()` method
+
+**Videos:**
+
+- **Local Development**: Recorded for all test executions at 1280x720 resolution
+- **CI Environment**: Only retained for failed tests to conserve storage
+- Stored in `test-results/` directory
+
+**Accessing Test Artifacts:**
+
+- **Local**: Check the `test-results/` folder after running tests
+- **CI**: Download artifacts from the GitHub Actions "Summary" page after workflow completion
+
 ## License
 
-ISC
+MIT
