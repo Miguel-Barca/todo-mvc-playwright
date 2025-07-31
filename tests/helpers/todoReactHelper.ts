@@ -40,7 +40,6 @@ export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
   );
 }
 
-// TODO: strike through the item
 export async function completeItemInTodoList(page: Page, todoItem: TodoItem) {
   const itemText = getItemText(todoItem);
 

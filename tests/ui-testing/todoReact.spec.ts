@@ -29,7 +29,7 @@ test('create, complete and delete items from the list', async ({
   await todoPage.captureScreenshot('stage_4_first_item_completed_main_view');
 
   await todoPage.navigateToCompletedItemsTab();
-  await test.step(`verify user is on correct route: ${config.REACT_COMPLETED_ITEMS_ROUTE}`, async () => {
+  await test.step(`verify user is on correct route: completed items`, async () => {
     await expect(page).toHaveURL(config.REACT_COMPLETED_ITEMS_ROUTE);
   });
   await todoPage.assertItemAppearsInList(firstItemWithTodayDate);
@@ -39,7 +39,7 @@ test('create, complete and delete items from the list', async ({
   );
 
   await todoPage.navigateToAllItemsTab();
-  await test.step(`verify user is on correct route: ${config.REACT_ALL_ITEMS_ROUTE}`, async () => {
+  await test.step(`verify user is on correct route: all items`, async () => {
     await expect(page).toHaveURL(config.REACT_ALL_ITEMS_ROUTE);
   });
 

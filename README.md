@@ -22,22 +22,27 @@ This project uses the following dependencies:
 
    ```bash
    git clone https://github.com/Miguel-Barca/todo-mvc-playwright.git
+   ```
+
+2. **Navigate to the project directory:**
+
+   ```bash
    cd todo-mvc-playwright
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-3. **Install Playwright browsers:**
+4. **Install Playwright browsers:**
 
    ```bash
    npx playwright install
    ```
 
-4. **Install the custom Indent List Reporter (for enhanced local development experience):**
+5. **Install the custom Indent List Reporter (for enhanced local development experience):**
    ```bash
    npm install indent-list-reporter --save-dev
    ```

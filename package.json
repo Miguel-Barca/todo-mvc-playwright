@@ -1,7 +1,7 @@
 {
   "name": "todo-mvc-playwright",
   "version": "1.0.0",
-  "description": "",
+  "description": "test case for TodoMVC React using Playwright",
   "main": "index.js",
   "scripts": {
     "test:ui:all:showHtmlReport": "playwright test && npx playwright show-report",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/Miguel-Barca/todo-mvc-playwright.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Miguel Barca",
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
