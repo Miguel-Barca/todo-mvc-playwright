@@ -13,6 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  /* Output directory for test artifacts */
+  outputDir: './test-results',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -32,6 +34,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    video: process.env.CI
+      ? { mode: 'retain-on-failure', size: { width: 1280, height: 720 } }
+      : { mode: 'on', size: { width: 1280, height: 720 } },
   },
 
   projects: [
