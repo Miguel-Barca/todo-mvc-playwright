@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:ui:all:showHtmlReport": "playwright test && npx playwright show-report",
+    "test:ui:all:showIndentListReport": "playwright test --reporter=indent-list-reporter",
+    "test:ui:chromium": "playwright test --project=ui-testing",
+    "test:ui:firefox": "playwright test --project=firefox",
+    "test:ui:webkit": "playwright test --project=webkit"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Miguel-Barca/todo-mvc-playwright.git"
@@ -18,6 +24,7 @@
   "homepage": "https://github.com/Miguel-Barca/todo-mvc-playwright#readme",
   "devDependencies": {
     "@playwright/test": "^1.54.1",
-    "@types/node": "^24.1.0"
+    "@types/node": "^24.1.0",
+    "indent-list-reporter": "^1.1.1"
   }
 }
