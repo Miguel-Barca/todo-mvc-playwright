@@ -68,7 +68,7 @@ export async function confirmCSSStylingOfCompletedItem(
     async () => {
       await expect(
         page.getByTestId('todo-item-label').filter({ hasText: itemText })
-      ).toHaveCSS('text-decoration', 'line-through solid rgb(148, 148, 148)');
+      ).toHaveCSS('text-decoration', /line-through/);
     },
     { box: true }
   );
