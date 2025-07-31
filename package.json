@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:ui:all:showHtmlReport": "playwright test && npx playwright show-report",
+    "test:ui:all:showHtmlReport:headed": "playwright test --headed && npx playwright show-report",
     "test:ui:all:showIndentListReport": "playwright test --reporter=indent-list-reporter",
     "test:ui:chromium": "playwright test --project=chromium",
     "test:ui:firefox": "playwright test --project=firefox",
@@ -16,7 +17,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Miguel-Barca/todo-mvc-playwright/issues"

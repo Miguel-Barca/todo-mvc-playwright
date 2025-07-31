@@ -54,6 +54,12 @@ The project provides several npm scripts for common testing scenarios:
 npm run test:ui:all:showHtmlReport # (Browsers: Chromium, Firefox, Safari)
 ```
 
+**Run all tests in headed mode and show HTML report:**
+
+```bash
+npm run test:ui:all:showHtmlReport:headed # (Browsers: Chromium, Firefox, Safari) - See browser
+```
+
 **Run all tests with indent list reporter only:**
 
 ```bash
@@ -63,9 +69,9 @@ npm run test:ui:all:showIndentListReport # (Browsers: Chromium, Firefox, Safari)
 **Run tests in specific browser:**
 
 ```bash
-npm run test:ui:chromium
-npm run test:ui:firefox
-npm run test:ui:webkit
+npm run test:ui:chromium    # Runs Chromium tests only
+npm run test:ui:firefox     # Runs Firefox tests only
+npm run test:ui:webkit      # Runs WebKit (Safari) tests only
 ```
 
 ### Direct Playwright Commands
@@ -76,10 +82,30 @@ npm run test:ui:webkit
 npx playwright test
 ```
 
+**Run tests in specific browser:**
+
+```bash
+npx playwright test --project=chromium    # Chromium tests only
+npx playwright test --project=firefox     # Firefox tests only
+npx playwright test --project=webkit      # WebKit (Safari) tests only
+```
+
 **Run tests in headed mode (see browser):**
 
 ```bash
 npx playwright test --headed
+```
+
+**Run specific test file:**
+
+```bash
+npx playwright test tests/ui-testing/todoReact.spec.ts
+```
+
+**Run tests in debug mode:**
+
+```bash
+npx playwright test --debug
 ```
 
 ### Viewing Test Reports
@@ -140,18 +166,18 @@ The project captures visual documentation during test execution:
 
 - Captured at key stages throughout test execution (e.g., homepage, after adding items, after completing items, etc.)
 - Stored in `test-results/screenshots/` with descriptive names
-- Implemented using `todoPage.captureScreenshot()` method
 
 **Videos:**
 
 - **Local Development**: Recorded for all test executions at 1280x720 resolution
 - **CI Environment**: Only retained for failed tests to conserve storage
 - Stored in `test-results/` directory
+- Available on the Html report
 
 **Accessing Test Artifacts:**
 
 - **Local**: Check the `test-results/` folder after running tests
-- **CI**: Download artifacts from the GitHub Actions "Summary" page after workflow completion
+- **CI**: Download "playwright-report" and "videos and screenshots" artifacts from the GitHub Actions "Summary" page after workflow completion
 
 ## License
 
