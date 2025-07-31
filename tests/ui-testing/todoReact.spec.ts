@@ -1,44 +1,26 @@
-import { test, expect } from '@playwright/test';
-import { config } from '../config/urls';
-import { getCurrentDate, getTomorrowDate } from '../helpers/timeHelper';
-import {
-  addItemToTodoList,
-  checkItemInTodoList,
-  deleteItemFromTodoList,
-  verifyItemAppearsInList,
-} from '../helpers/todoReactHelper';
+import { test, expect } from '../fixtures/todoFixtures';
 
-const todoItems: { item: string; date: string }[] = [
-  { item: 'TODO 1 -', date: getCurrentDate() },
-  { item: 'TODO 2 -', date: getTomorrowDate() },
-];
-
-test('add items to the list, complete them and proceed to delete them', async ({
+test('create, complete and delete items from the list', async ({
   page,
+  todoPage,
+  todoData,
 }) => {
-  await test.step('go to the todo list home page', async () => {
-    await page.goto(config.REACT_URL);
+  await test.step('navigate to todo app', async () => {
+    await todoPage.goto();
+    await expect(page).toHaveURL(/.*react.*dist/);
   });
 
-  await test.step('page url should be correct', async () => {
-    await expect(page).toHaveURL(config.REACT_URL);
-  });
+  const [firstItemWithTodayDate, secondItemWithTomorrowDate] =
+    todoData.defaultItems;
 
-  await addItemToTodoList(page, todoItems[0]);
-  await verifyItemAppearsInList(page, todoItems[0]);
+  await todoPage.addItem(firstItemWithTodayDate);
+  await todoPage.verifyItem(firstItemWithTodayDate);
 
-  await addItemToTodoList(page, todoItems[1]);
-  await verifyItemAppearsInList(page, todoItems[1]);
+  await todoPage.addItem(secondItemWithTomorrowDate);
+  await todoPage.verifyItem(secondItemWithTomorrowDate);
 
-  await deleteItemFromTodoList(page, todoItems[1]);
-  await verifyItemAppearsInList(page, todoItems[1], false);
+  await todoPage.deleteItem(secondItemWithTomorrowDate);
+  await todoPage.verifyItem(secondItemWithTomorrowDate, false);
 
-  await checkItemInTodoList(page, todoItems[0]);
-  // TODO: add tests for the todo items
-  // await expect(page.getByTestId('todo-item-label')).toBeVisible();
-  // await page.getByTestId('todo-item-toggle').check();
-  // await expect(page.getByTestId('todo-item-toggle')).toBeVisible();
-  // await page.getByTestId('todo-item-label').click();
-  // await page.getByTestId('todo-item-toggle').uncheck();
-  // await page.getByTestId('todo-item-toggle').check();
+  await todoPage.checkItem(firstItemWithTodayDate);
 });

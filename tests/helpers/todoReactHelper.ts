@@ -1,13 +1,11 @@
 import { test, Page, expect } from '@playwright/test';
+import { TodoItem } from './types';
 
 function getItemText(todoItem: { item: string; date: string }): string {
   return todoItem.item + todoItem.date;
 }
 
-export async function addItemToTodoList(
-  page: Page,
-  todoItem: { item: string; date: string }
-) {
+export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
   const itemText = getItemText(todoItem);
   await test.step(
     `add item: '${itemText}' to the list`,
@@ -20,10 +18,7 @@ export async function addItemToTodoList(
 }
 
 // TODO: strike through the item
-export async function checkItemInTodoList(
-  page: Page,
-  todoItem: { item: string; date: string }
-) {
+export async function checkItemInTodoList(page: Page, todoItem: TodoItem) {
   const itemText = getItemText(todoItem);
 
   await test.step(
@@ -39,10 +34,7 @@ export async function checkItemInTodoList(
   );
 }
 
-export async function deleteItemFromTodoList(
-  page: Page,
-  todoItem: { item: string; date: string }
-) {
+export async function deleteItemFromTodoList(page: Page, todoItem: TodoItem) {
   const itemText = getItemText(todoItem);
   await test.step(
     `hover over the item: '${itemText}' to show the delete button`,
@@ -70,7 +62,7 @@ export async function deleteItemFromTodoList(
 
 export async function verifyItemAppearsInList(
   page: Page,
-  todoItem: { item: string; date: string },
+  todoItem: TodoItem,
   isOnTheList: boolean = true
 ) {
   const itemText = getItemText(todoItem);
