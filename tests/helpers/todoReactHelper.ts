@@ -5,6 +5,29 @@ function getItemText(todoItem: { item: string; date: string }): string {
   return todoItem.item + todoItem.date;
 }
 
+export async function assertItemAppearsInList(
+  page: Page,
+  todoItem: TodoItem,
+  isOnTheList: boolean = true
+) {
+  const itemText = getItemText(todoItem);
+  const locator = page.getByTestId('todo-item-label').getByText(itemText);
+
+  const action = isOnTheList ? 'appears in' : 'does not appear in';
+
+  await test.step(
+    `assert '${itemText}' ${action} the list`,
+    async () => {
+      if (isOnTheList) {
+        await expect(locator).toBeVisible();
+      } else {
+        await expect(locator).not.toBeVisible();
+      }
+    },
+    { box: true }
+  );
+}
+
 export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
   const itemText = getItemText(todoItem);
   await test.step(
@@ -18,17 +41,34 @@ export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
 }
 
 // TODO: strike through the item
-export async function checkItemInTodoList(page: Page, todoItem: TodoItem) {
+export async function completeItemInTodoList(page: Page, todoItem: TodoItem) {
+  const itemText = getItemText(todoItem);
+
+  const itemOnTheList = page
+    .getByTestId('todo-item')
+    .filter({ hasText: itemText });
+
+  await test.step(
+    `mark item as completed`,
+    async () => {
+      await itemOnTheList.getByTestId('todo-item-toggle').click();
+    },
+    { box: true }
+  );
+}
+
+export async function confirmCSSStylingOfCompletedItem(
+  page: Page,
+  todoItem: TodoItem
+) {
   const itemText = getItemText(todoItem);
 
   await test.step(
-    `check the item: '${itemText}' in the list`,
+    `assert item is displayed as completed with CSS styling - strike through the item`,
     async () => {
-      await page
-        .getByTestId('todo-item')
-        .filter({ hasText: itemText })
-        .getByTestId('todo-item-toggle')
-        .click();
+      await expect(
+        page.getByTestId('todo-item-label').filter({ hasText: itemText })
+      ).toHaveCSS('text-decoration', 'line-through solid rgb(148, 148, 148)');
     },
     { box: true }
   );
@@ -60,24 +100,21 @@ export async function deleteItemFromTodoList(page: Page, todoItem: TodoItem) {
   );
 }
 
-export async function verifyItemAppearsInList(
-  page: Page,
-  todoItem: TodoItem,
-  isOnTheList: boolean = true
-) {
-  const itemText = getItemText(todoItem);
-  const locator = page.getByTestId('todo-item-label').getByText(itemText);
-
-  const action = isOnTheList ? 'appears in' : 'does not appear in';
-
+export async function navigateToAllItemsTab(page: Page) {
   await test.step(
-    `verify item: '${itemText}' ${action} the list`,
+    `navigate to the all items tab`,
     async () => {
-      if (isOnTheList) {
-        await expect(locator).toBeVisible();
-      } else {
-        await expect(locator).not.toBeVisible();
-      }
+      await page.getByRole('link', { name: 'All' }).click();
+    },
+    { box: true }
+  );
+}
+
+export async function navigateToCompletedItemsTab(page: Page) {
+  await test.step(
+    `navigate to the completed items tab`,
+    async () => {
+      await page.getByRole('link', { name: 'Completed' }).click();
     },
     { box: true }
   );

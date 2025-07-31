@@ -3,9 +3,12 @@ import { config } from '../config/urls';
 import { getCurrentDate, getTomorrowDate } from '../helpers/timeHelper';
 import {
   addItemToTodoList,
-  checkItemInTodoList,
+  completeItemInTodoList,
+  confirmCSSStylingOfCompletedItem,
   deleteItemFromTodoList,
-  verifyItemAppearsInList,
+  navigateToCompletedItemsTab,
+  assertItemAppearsInList,
+  navigateToAllItemsTab,
 } from '../helpers/todoReactHelper';
 import { TodoItem } from '../helpers/types';
 
@@ -14,9 +17,15 @@ export interface TodoFixtures {
     goto: () => Promise<void>;
 
     addItem: (todoItem: TodoItem) => Promise<void>;
-    checkItem: (todoItem: TodoItem) => Promise<void>;
+    completeItem: (todoItem: TodoItem) => Promise<void>;
+    confirmCSSStylingOfCompletedItem: (todoItem: TodoItem) => Promise<void>;
     deleteItem: (todoItem: TodoItem) => Promise<void>;
-    verifyItem: (todoItem: TodoItem, shouldExist?: boolean) => Promise<void>;
+    navigateToAllItemsTab: () => Promise<void>;
+    navigateToCompletedItemsTab: () => Promise<void>;
+    assertItemAppearsInList: (
+      todoItem: TodoItem,
+      shouldExist?: boolean
+    ) => Promise<void>;
   };
 
   todoData: {
@@ -36,16 +45,31 @@ export const test = base.extend<TodoFixtures>({
         await addItemToTodoList(page, todoItem);
       },
 
-      checkItem: async (todoItem: TodoItem) => {
-        await checkItemInTodoList(page, todoItem);
+      completeItem: async (todoItem: TodoItem) => {
+        await completeItemInTodoList(page, todoItem);
+      },
+
+      confirmCSSStylingOfCompletedItem: async (todoItem: TodoItem) => {
+        await confirmCSSStylingOfCompletedItem(page, todoItem);
       },
 
       deleteItem: async (todoItem: TodoItem) => {
         await deleteItemFromTodoList(page, todoItem);
       },
 
-      verifyItem: async (todoItem: TodoItem, isOnTheList: boolean = true) => {
-        await verifyItemAppearsInList(page, todoItem, isOnTheList);
+      navigateToAllItemsTab: async () => {
+        await navigateToAllItemsTab(page);
+      },
+
+      navigateToCompletedItemsTab: async () => {
+        await navigateToCompletedItemsTab(page);
+      },
+
+      assertItemAppearsInList: async (
+        todoItem: TodoItem,
+        isOnTheList: boolean = true
+      ) => {
+        await assertItemAppearsInList(page, todoItem, isOnTheList);
       },
     };
 
