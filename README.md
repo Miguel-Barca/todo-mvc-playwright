@@ -42,11 +42,6 @@ This project uses the following dependencies:
    npx playwright install
    ```
 
-5. **Install the custom Indent List Reporter (optional - for enhanced local development experience):**
-   ```bash
-   npm install indent-list-reporter --save-dev
-   ```
-
 ## How to Run
 
 ### Available Scripts
@@ -64,13 +59,6 @@ npm run test:ui:all:showHtmlReport
 
 ```bash
 npm run test:ui:all:showHtmlReport:headed
-# Runs tests on Chromium, Firefox, and Safari browsers
-```
-
-**Run all tests with indent list reporter only:**
-
-```bash
-npm run test:ui:all:showIndentListReport
 # Runs tests on Chromium, Firefox, and Safari browsers
 ```
 
@@ -126,7 +114,7 @@ npx playwright show-report
 
 **View test results during execution:**
 
-- Local runs will show both HTML reports and indented list output
+- Local runs will show both HTML reports and list CLI report
 - CI runs will show real-time list output and generate HTML reports as artifacts
 
 ## Project Structure
@@ -170,13 +158,13 @@ The project uses different reporters depending on the environment:
 
 **Local Development:**
 
+- **List Reporter** - Provides real-time feedback during test execution (with steps)
 - **HTML Reporter** - Generates interactive HTML reports with detailed test results
-- **[Indent List Reporter](https://github.com/syzzana/indent-list-reporter)** - Shows test structure in an indented, hierarchical format during execution
 
 **CI Environment:**
 
 - **List Reporter** - Provides real-time feedback during test execution
-- **HTML Reporter** - Generates reports for artifact storage and review
+- **HTML Reporter** - Generates interactive HTML reports for artifact storage and review
 
 ### Screenshots and Video Recording
 
