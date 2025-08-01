@@ -190,7 +190,7 @@ The project captures visual documentation during test execution:
 **Videos:**
 
 - **Local Development**: Recorded for all test executions at 1280x720 resolution
-- **CI Environment**: Only retained for failed tests to conserve storage
+- **CI Environment**: Recorded for all test executions at 1280x720 resolution
 - Stored in `test-results/` directory
 - Available on the HTML report
 
@@ -198,6 +198,19 @@ The project captures visual documentation during test execution:
 
 - **Local**: Check the `test-results/` folder after running tests
 - **CI**: Download "playwright-report" and "videos and screenshots" artifacts from the GitHub Actions "Summary" page after workflow completion
+
+## CI/CD Integration
+
+This project includes GitHub Actions workflows for automated testing:
+
+- **Automatic test execution** on pull requests and pushes to main branch
+- **Cross-browser testing** in CI environment
+- **Artifact collection** of test reports, screenshots, and videos
+- **HTML reports** available as downloadable artifacts after workflow completion
+
+The CI configuration automatically runs all tests across Chromium, Firefox, and Safari browsers.
+
+**Viewing CI Results**: Check the "Actions" tab in your GitHub repository to see test results and download artifacts.
 
 ## Troubleshooting
 
