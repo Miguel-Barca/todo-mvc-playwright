@@ -10,30 +10,26 @@ test('create, complete and delete items from the list', async ({
     await todoPage.goto();
     await expect(page).toHaveURL(config.REACT_URL);
   });
-
   await todoPage.captureScreenshot('stage_1_homepage');
 
-  const [firstItemWithTodayDate, secondItemWithTomorrowDate] =
-    todoData.defaultItems;
-
-  await todoPage.addItem(firstItemWithTodayDate);
-  await todoPage.assertItemAppearsInList(firstItemWithTodayDate);
+  await todoPage.addItem(todoData.todoListItems.today);
+  await todoPage.verifyItemAppearsInList(todoData.todoListItems.today);
   await todoPage.captureScreenshot('stage_2_first_item_added');
 
-  await todoPage.addItem(secondItemWithTomorrowDate);
-  await todoPage.assertItemAppearsInList(secondItemWithTomorrowDate);
+  await todoPage.addItem(todoData.todoListItems.tomorrow);
+  await todoPage.verifyItemAppearsInList(todoData.todoListItems.tomorrow);
   await todoPage.captureScreenshot('stage_3_second_item_added');
 
-  await todoPage.completeItem(firstItemWithTodayDate);
-  await todoPage.confirmCSSStylingOfCompletedItem(firstItemWithTodayDate);
+  await todoPage.completeItem(todoData.todoListItems.today);
+  await todoPage.confirmCSSStylingOfCompletedItem(todoData.todoListItems.today);
   await todoPage.captureScreenshot('stage_4_first_item_completed_main_view');
 
   await todoPage.navigateToCompletedItemsTab();
   await test.step(`verify user is on correct route: completed items`, async () => {
     await expect(page).toHaveURL(config.REACT_COMPLETED_ITEMS_ROUTE);
   });
-  await todoPage.assertItemAppearsInList(firstItemWithTodayDate);
-  await todoPage.confirmCSSStylingOfCompletedItem(firstItemWithTodayDate);
+  await todoPage.verifyItemAppearsInList(todoData.todoListItems.today);
+  await todoPage.confirmCSSStylingOfCompletedItem(todoData.todoListItems.today);
   await todoPage.captureScreenshot(
     'stage_5_first_item_completed_completed_view'
   );
@@ -43,7 +39,10 @@ test('create, complete and delete items from the list', async ({
     await expect(page).toHaveURL(config.REACT_ALL_ITEMS_ROUTE);
   });
 
-  await todoPage.deleteItem(secondItemWithTomorrowDate);
-  await todoPage.assertItemAppearsInList(secondItemWithTomorrowDate, false);
+  await todoPage.deleteItem(todoData.todoListItems.tomorrow);
+  await todoPage.verifyItemAppearsInList(
+    todoData.todoListItems.tomorrow,
+    false
+  );
   await todoPage.captureScreenshot('stage_6_second_item_deleted');
 });

@@ -1,17 +1,17 @@
 import { test as base } from '@playwright/test';
 import { config } from '../config/urls';
-import { getCurrentDate, getTomorrowDate } from '../helpers/timeHelper';
 import {
   addItemToTodoList,
   completeItemInTodoList,
   confirmCSSStylingOfCompletedItem,
   deleteItemFromTodoList,
   navigateToCompletedItemsTab,
-  assertItemAppearsInList,
+  verifyItemAppearsInList,
   navigateToAllItemsTab,
 } from '../helpers/todoReactHelper';
 import { TodoItem } from '../helpers/types';
 import { captureScreenshot } from '../helpers/screenshotHelper';
+import { TodoItemKey, todoTestData } from '../data/todoTestData';
 
 export interface TodoFixtures {
   todoPage: {
@@ -24,15 +24,14 @@ export interface TodoFixtures {
     deleteItem: (todoItem: TodoItem) => Promise<void>;
     navigateToAllItemsTab: () => Promise<void>;
     navigateToCompletedItemsTab: () => Promise<void>;
-    assertItemAppearsInList: (
+    verifyItemAppearsInList: (
       todoItem: TodoItem,
-      shouldExist?: boolean
+      isOnTheList?: boolean
     ) => Promise<void>;
   };
 
   todoData: {
-    defaultItems: TodoItem[];
-    createItem: (text: string, date?: string) => TodoItem;
+    todoListItems: Record<TodoItemKey, TodoItem>;
   };
 }
 
@@ -71,11 +70,11 @@ export const test = base.extend<TodoFixtures>({
         await navigateToCompletedItemsTab(page);
       },
 
-      assertItemAppearsInList: async (
+      verifyItemAppearsInList: async (
         todoItem: TodoItem,
         isOnTheList: boolean = true
       ) => {
-        await assertItemAppearsInList(page, todoItem, isOnTheList);
+        await verifyItemAppearsInList(page, todoItem, isOnTheList);
       },
     };
 
@@ -83,22 +82,7 @@ export const test = base.extend<TodoFixtures>({
   },
 
   todoData: async ({}, use) => {
-    const data = {
-      defaultItems: [
-        { item: 'TODO 1 -', date: getCurrentDate() },
-        { item: 'TODO 2 -', date: getTomorrowDate() },
-      ],
-
-      createItem: (
-        text: string,
-        date: string = getCurrentDate()
-      ): TodoItem => ({
-        item: text,
-        date,
-      }),
-    };
-
-    await use(data);
+    await use({ todoListItems: todoTestData });
   },
 });
 

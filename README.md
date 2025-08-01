@@ -42,7 +42,7 @@ This project uses the following dependencies:
    npx playwright install
    ```
 
-5. **Install the custom Indent List Reporter (for enhanced local development experience):**
+5. **Install the custom Indent List Reporter (optional - for enhanced local development experience):**
    ```bash
    npm install indent-list-reporter --save-dev
    ```
@@ -56,19 +56,22 @@ The project provides several npm scripts for common testing scenarios:
 **Run all tests and show HTML report:**
 
 ```bash
-npm run test:ui:all:showHtmlReport # (Browsers: Chromium, Firefox, Safari)
+npm run test:ui:all:showHtmlReport
+# Runs tests on Chromium, Firefox, and Safari browsers
 ```
 
 **Run all tests in headed mode and show HTML report:**
 
 ```bash
-npm run test:ui:all:showHtmlReport:headed # (Browsers: Chromium, Firefox, Safari) - See browser
+npm run test:ui:all:showHtmlReport:headed
+# Runs tests on Chromium, Firefox, and Safari browsers
 ```
 
 **Run all tests with indent list reporter only:**
 
 ```bash
-npm run test:ui:all:showIndentListReport # (Browsers: Chromium, Firefox, Safari)
+npm run test:ui:all:showIndentListReport
+# Runs tests on Chromium, Firefox, and Safari browsers
 ```
 
 **Run tests in specific browser:**
@@ -132,6 +135,7 @@ npx playwright show-report
 todo-mvc-playwright/
 ├── tests/
 │   ├── config/           # Configuration files
+│   ├── data/             # Test data
 │   ├── fixtures/         # Test fixtures and setup
 │   ├── helpers/          # Helper functions and utilities
 │   └── ui-testing/       # UI test specifications
@@ -140,6 +144,17 @@ todo-mvc-playwright/
 ├── playwright.config.ts  # Playwright configuration
 └── package.json         # Project dependencies and scripts
 ```
+
+## What This Framework Tests
+
+This framework tests the React TodoMVC implementation at `https://todomvc.com/examples/react/dist/` including:
+
+- ✅ Adding new todo items
+- ✅ Completing todos
+- ✅ Deleting todo items
+- ✅ Navigation between All and Completed views
+- ✅ CSS styling verification for completed items
+- ✅ Cross-browser compatibility (Chromium, Firefox, Safari)
 
 ## Test Configuration
 
@@ -177,12 +192,19 @@ The project captures visual documentation during test execution:
 - **Local Development**: Recorded for all test executions at 1280x720 resolution
 - **CI Environment**: Only retained for failed tests to conserve storage
 - Stored in `test-results/` directory
-- Available on the Html report
+- Available on the HTML report
 
 **Accessing Test Artifacts:**
 
 - **Local**: Check the `test-results/` folder after running tests
 - **CI**: Download "playwright-report" and "videos and screenshots" artifacts from the GitHub Actions "Summary" page after workflow completion
+
+## Troubleshooting
+
+**Common Issues:**
+
+- **Browser installation issues**: Run `npx playwright install --with-deps`
+- **Permission errors**: On some systems, you may need to run commands with elevated permissions
 
 ## License
 

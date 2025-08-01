@@ -1,9 +1,11 @@
-import { Page, test } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export async function captureScreenshot(page: Page, testName: string) {
-  await test.step(`capture screenshot of ${testName}`, async () => {
+  try {
     await page.screenshot({
       path: `test-results/screenshots/${testName}.png`,
     });
-  });
+  } catch (error) {
+    console.warn(`Failed to capture screenshot for ${testName}:`, error);
+  }
 }
