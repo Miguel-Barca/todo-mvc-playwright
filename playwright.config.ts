@@ -26,7 +26,7 @@ export default defineConfig({
 
     video: process.env.CI
       ? {
-          mode: 'retain-on-failure',
+          mode: 'on', // For access via github actions
           size: { width: 1280, height: 720 },
         }
       : {
