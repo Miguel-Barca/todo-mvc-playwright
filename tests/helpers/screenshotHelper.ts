@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 
-export async function captureScreenshot(page: Page, testName: string) {
+export async function captureScreenshot(page: Page, testName: string): Promise<void> {
   try {
     await page.screenshot({
       path: `test-results/screenshots/${testName}.png`,

@@ -6,7 +6,7 @@ function getItemText(todoItem: { item: string; date: string }): string {
   return todoItem.item + todoItem.date;
 }
 
-export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
+export async function addItemToTodoList(page: Page, todoItem: TodoItem): Promise<void> {
   const itemText = getItemText(todoItem);
   await test.step(
     `add item: '${itemText}' to the list`,
@@ -18,7 +18,7 @@ export async function addItemToTodoList(page: Page, todoItem: TodoItem) {
   );
 }
 
-export async function completeItemInTodoList(page: Page, todoItem: TodoItem) {
+export async function completeItemInTodoList(page: Page, todoItem: TodoItem): Promise<void> {
   const itemText = getItemText(todoItem);
 
   const itemOnTheList = page
@@ -37,7 +37,7 @@ export async function completeItemInTodoList(page: Page, todoItem: TodoItem) {
 export async function confirmCSSStylingOfCompletedItem(
   page: Page,
   todoItem: TodoItem
-) {
+): Promise<void> {
   const itemText = getItemText(todoItem);
 
   await test.step(
@@ -51,7 +51,7 @@ export async function confirmCSSStylingOfCompletedItem(
   );
 }
 
-export async function deleteItemFromTodoList(page: Page, todoItem: TodoItem) {
+export async function deleteItemFromTodoList(page: Page, todoItem: TodoItem): Promise<void> {
   const itemText = getItemText(todoItem);
   await test.step(
     `hover over the item: '${itemText}' to show the delete button`,
@@ -77,7 +77,7 @@ export async function deleteItemFromTodoList(page: Page, todoItem: TodoItem) {
   );
 }
 
-export async function navigateToAllItemsTab(page: Page) {
+export async function navigateToAllItemsTab(page: Page): Promise<void> {
   await test.step(
     `navigate to the all items tab`,
     async () => {
@@ -87,7 +87,7 @@ export async function navigateToAllItemsTab(page: Page) {
   );
 }
 
-export async function navigateToCompletedItemsTab(page: Page) {
+export async function navigateToCompletedItemsTab(page: Page): Promise<void> {
   await test.step(
     `navigate to the completed items tab`,
     async () => {
@@ -101,7 +101,7 @@ export async function verifyItemAppearsInList(
   page: Page,
   todoItem: TodoItem,
   isOnTheList: boolean = true
-) {
+): Promise<void> {
   const itemText = getItemText(todoItem);
   const locator = page
     .getByTestId(TEST_IDS.TODO_ITEM_LABEL)
